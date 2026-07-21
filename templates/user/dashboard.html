@@ -6,7 +6,7 @@
 <div class="page-header">
   <div>
     <h1>👋 Хош келдиңиз, {{ user.first_name|default:user.username }}!</h1>
-    <p>Сиздиң жеке кабинетиңиз</p>
+    <p>Сиз озиниздин кабинетинздесиз</p>
   </div>
   <a href="{% url 'user_order_create' %}" class="btn btn-primary" id="new-order-btn">
     <i class="fas fa-plus"></i> Жаңа заказ
@@ -19,7 +19,7 @@
     <div class="stat-icon blue"><i class="fas fa-shopping-bag"></i></div>
     <div>
       <div class="stat-value">{{ order_stats.total }}</div>
-      <div class="stat-label">Жәми заказлар</div>
+      <div class="stat-label">Хамме заказлар</div>
     </div>
   </div>
   <div class="stat-card">
@@ -33,7 +33,7 @@
     <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
     <div>
       <div class="stat-value">{{ order_stats.completed }}</div>
-      <div class="stat-label">Жуўмақланды</div>
+      <div class="stat-label">Таманланды</div>
     </div>
   </div>
 </div>
@@ -41,8 +41,8 @@
 <!-- Соңғы заказлар -->
 <div class="table-wrap mb-3">
   <div class="table-header">
-    <h3><i class="fas fa-history"></i> Соңғы заказлар</h3>
-    <a href="{% url 'user_orders' %}" class="btn btn-outline btn-sm" id="all-orders-link">Барлығы</a>
+    <h3><i class="fas fa-history"></i> Акыргы заказлар</h3>
+    <a href="{% url 'user_orders' %}" class="btn btn-outline btn-sm" id="all-orders-link">Хаммеси</a>
   </div>
 
   {% if orders %}
@@ -78,7 +78,7 @@
   <div class="empty-state">
     <i class="fas fa-shopping-bag"></i>
     <h3>Заказлар жоқ</h3>
-    <p>Бириншиниңизди қосыңыз!</p>
+    <p>Биринши заказинизди қосың!</p>
     <a href="{% url 'user_order_create' %}" class="btn btn-primary mt-2" id="first-order-btn">
       <i class="fas fa-plus"></i> Заказ бериў
     </a>
@@ -89,7 +89,7 @@
 <!-- Қызықлы өнимлер -->
 {% if products %}
 <div>
-  <h3 class="text-white mb-2">⭐ Ҳәзир жарамлы өнимлер</h3>
+  <h3 class="text-white mb-2">⭐ Ҳәзир жарамлы панеллер</h3>
   <div class="grid-4">
     {% for p in products %}
     <div class="product-card" style="transform: none;">

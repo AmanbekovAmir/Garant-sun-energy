@@ -6,10 +6,10 @@
 <div class="page-header">
   <div>
     <h1><i class="fas fa-shopping-bag text-gold"></i> Менің заказларым</h1>
-    <p>Барлық заказлар тарийхы</p>
+    <p>Хамме заказлар тарийхы</p>
   </div>
   <a href="{% url 'user_order_create' %}" class="btn btn-primary" id="add-order-btn">
-    <i class="fas fa-plus"></i> Жаңа заказ
+    <i class="fas fa-plus"></i> Таза заказ
   </a>
 </div>
 
@@ -22,7 +22,7 @@
         <th>Өним</th>
         <th>Саны</th>
         <th>Жәми баҳа</th>
-        <th>Мекан-жай</th>
+        <th>Манзил</th>
         <th>Статус</th>
         <th>Менеджер ескертпеси</th>
         <th>Ўақыты</th>
@@ -58,7 +58,7 @@
   <div class="empty-state">
     <i class="fas fa-inbox"></i>
     <h3>Ҳәзирше заказлар жоқ</h3>
-    <p>Биринши заказыңызды бериңиз!</p>
+    <p>Биринши заказынизди бериң!</p>
     <a href="{% url 'user_order_create' %}" class="btn btn-primary mt-2" id="first-order-cta">
       <i class="fas fa-plus"></i> Заказ бериў
     </a>
