@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Өнимлеримиз{% endblock %}
+
+{% block content %}
+<div class="page-wrapper" style="padding-bottom: 5rem;">
+  <div class="container">
+    <div class="section-title" style="margin-top: 3rem;">
+      <div class="section-badge"><i class="fas fa-solar-panel"></i> Каталог</div>
+      <h2>Биздиң өнимлер</h2>
+      <p>Үйиңиз ҳәм бизнесиниз ушын сапалы күн панели шешимлери</p>
+    </div>
+
+    <!-- Категориялар бойынша сүзгиш -->
+    <div style="display:flex; justify-content:center; gap:0.75rem; margin-bottom:3rem; flex-wrap:wrap;">
+      <a href="{% url 'products_list' %}" class="btn {% if not category %}btn-primary{% else %}btn-outline{% endif %} btn-sm">
+        Ҳәммеси
+      </a>
+      <a href="{% url 'products_list' %}?category=panel" class="btn {% if category == 'panel' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">
+        Күн панельлери
+      </a>
+      <a href="{% url 'products_list' %}?category=battery" class="btn {% if category == 'battery' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">
+        Батареялар
+      </a>
+      <a href="{% url 'products_list' %}?category=inverter" class="btn {% if category == 'inverter' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">
+        Инверторлар
+      </a>
+      <a href="{% url 'products_list' %}?category=kit" class="btn {% if category == 'kit' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">
+        Толық комплектлер
+      </a>
+    </div>
+
+    {% if products %}
+    <div class="grid-3">
+      {% for product in products %}
+      <div class="product-card fade-in">
+        <div class="product-image">
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.title_kk }}">
+          {% else %}
+            ☀️
+          {% endif %}
+        </div>
+        <div class="product-body">
+          <div class="product-category">{{ product.get_category_display }}</div>
+          <div class="product-title">{{ product.title_kk }}</div>
+          <div class="product-desc">{{ product.description_kk }}</div>
+          {% if product.power_kw %}
+          <div class="product-power">
+            <i class="fas fa-bolt"></i> {{ product.power_kw }} кВт
+          </div>
+          {% endif %}
+          <div class="product-price">{{ product.price|floatformat:0 }} сум</div>
+          
+          {% if user.is_authenticated %}
+            <a href="{% url 'user_order_create' %}?product={{ product.pk }}" class="btn btn-primary w-full">
+              <i class="fas fa-shopping-cart"></i> Заказ бериў
+            </a>
+          {% else %}
+            <a href="{% url 'register' %}" class="btn btn-outline w-full">
+              <i class="fas fa-sign-in-alt"></i> Кириў ҳәм заказ бериў
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <i class="fas fa-search"></i>
+      <h3>Бул категория бойынша өнимлер ҳәзирше жоқ</h3>
+      <p>Басқа категорияны сайлап көриң</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

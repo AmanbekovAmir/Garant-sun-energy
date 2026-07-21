@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Менің кабинетим{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+  <!-- ── SIDEBAR ────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <!-- Профиль -->
+    <div style="text-align:center;padding:1rem 0.5rem 1.5rem;border-bottom:1px solid var(--border-light);margin-bottom:0.5rem;">
+      <div class="profile-avatar" style="width:56px;height:56px;font-size:1.3rem;margin-bottom:0.5rem;">
+        {{ user.first_name|first|default:user.username|first|upper }}
+      </div>
+      <div style="font-weight:600;color:var(--white);font-size:0.95rem;">
+        {{ user.get_full_name|default:user.username }}
+      </div>
+      <div style="font-size:0.78rem;color:var(--text-muted);">Пайдаланыўшы</div>
+    </div>
+
+    <div class="sidebar-title">Менің кабинетим</div>
+    <a href="{% url 'user_dashboard' %}" class="sidebar-link {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}" id="sidebar-home-link">
+      <i class="fas fa-home"></i> Бас бет
+    </a>
+    <a href="{% url 'user_orders' %}" class="sidebar-link {% if 'orders' in request.path %}active{% endif %}" id="sidebar-orders-link">
+      <i class="fas fa-shopping-bag"></i> Заказларым
+    </a>
+    <a href="{% url 'user_order_create' %}" class="sidebar-link" id="sidebar-new-order-link">
+      <i class="fas fa-plus-circle"></i> Жаңа заказ
+    </a>
+    <a href="{% url 'user_profile' %}" class="sidebar-link {% if 'profile' in request.path %}active{% endif %}" id="sidebar-profile-link">
+      <i class="fas fa-user-edit"></i> Профилим
+    </a>
+
+    <div class="sidebar-title" style="margin-top:1rem;">Басқа</div>
+    <a href="{% url 'home' %}" class="sidebar-link" id="sidebar-mainsite-link">
+      <i class="fas fa-globe"></i> Сайтқа қайтыў
+    </a>
+    <a href="{% url 'logout' %}" class="sidebar-link" id="sidebar-logout-link">
+      <i class="fas fa-sign-out-alt"></i> Шығыў
+    </a>
+  </aside>
+
+  <!-- ── БАСЛЫ МАЗМУН ──────────────────────────────────── -->
+  <main class="main-content">
+    {% block dash_content %}{% endblock %}
+  </main>
+</div>
+{% endblock %}

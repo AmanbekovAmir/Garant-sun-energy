@@ -1,0 +1,75 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}{{ action }} өним{% endblock %}
+
+{% block adm_content %}
+<div class="page-header">
+  <div>
+    <h1>📦 {{ action }} өним</h1>
+    <p>Өним мағлыўматларын толтырыңыз</p>
+  </div>
+  <a href="{% url 'admin_products' %}" class="btn btn-outline btn-sm">
+    <i class="fas fa-arrow-left"></i> Өнимлер тизимине қайтыў
+  </a>
+</div>
+
+<div style="max-width: 700px;">
+  <div class="form-card">
+    <form method="post" action="" enctype="multipart/form-data" data-loading>
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label class="form-label">{{ form.title_kk.label }}</label>
+        {{ form.title_kk }}
+        {% if form.title_kk.errors %}<ul class="errorlist">{% for e in form.title_kk.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.category.label }}</label>
+        {{ form.category }}
+        {% if form.category.errors %}<ul class="errorlist">{% for e in form.category.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="grid-2" style="gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label">{{ form.price.label }}</label>
+          {{ form.price }}
+          {% if form.price.errors %}<ul class="errorlist">{% for e in form.price.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+        <div class="form-group">
+          <label class="form-label">{{ form.power_kw.label }}</label>
+          {{ form.power_kw }}
+          {% if form.power_kw.errors %}<ul class="errorlist">{% for e in form.power_kw.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.description_kk.label }}</label>
+        {{ form.description_kk }}
+        {% if form.description_kk.errors %}<ul class="errorlist">{% for e in form.description_kk.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.image.label }}</label>
+        {{ form.image }}
+        {% if form.image.errors %}<ul class="errorlist">{% for e in form.image.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="form-group flex gap-1">
+        {{ form.is_active }}
+        <label class="form-label" style="margin-bottom:0;" for="id_is_active">{{ form.is_active.label }}</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" style="border-radius:8px; margin-top:1.5rem;">
+        <i class="fas fa-save"></i> Сақлаў
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('input:not([type="checkbox"]), select, textarea').forEach(el => el.classList.add('form-control'));
+</script>
+{% endblock %}

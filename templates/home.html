@@ -1,0 +1,363 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Бас бет{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+
+  <!-- ══════════════════════════════════════════════════════
+       HERO СЕКЦИЯСЫ
+  ══════════════════════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+
+    <!-- Бөлшекшелер -->
+    <div class="hero-particles">
+      <div class="particle" style="width:6px;height:6px;background:var(--green-light);top:20%;left:10%;animation-delay:0s;"></div>
+      <div class="particle" style="width:4px;height:4px;background:var(--gold);top:60%;left:20%;animation-delay:3s;"></div>
+      <div class="particle" style="width:8px;height:8px;background:var(--green-light);top:30%;right:15%;animation-delay:6s;"></div>
+      <div class="particle" style="width:5px;height:5px;background:var(--gold);top:70%;right:30%;animation-delay:9s;"></div>
+      <div class="particle" style="width:3px;height:3px;background:#fff;top:50%;left:50%;animation-delay:2s;"></div>
+    </div>
+
+    <div class="container" style="position:relative; z-index:1;">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-leaf"></i>
+          Нукус № 1 Күн Энергиясы Компаниясы
+        </div>
+
+        <h1>
+          Күн энергиясы менен<br>
+          <span class="highlight">Болашаққа қарай</span><br>
+          бирге баслан
+        </h1>
+
+        <p>
+          Garant Sun Energy — Қарақалпақстандағы жетекши күн панели орнатыў ҳәм сатыў компаниясы.
+          Үйиңизде ямаса кәсипорныңызда таза, арзан электр энергиясы алын.
+        </p>
+
+        <div class="hero-actions">
+          <a href="{% url 'products_list' %}" class="btn btn-primary btn-lg" id="hero-products-btn">
+            <i class="fas fa-solar-panel"></i> Өнимлерди көриў
+          </a>
+          <a href="#calculator" class="btn btn-gold btn-lg" id="hero-calc-btn">
+            <i class="fas fa-calculator"></i> Есаплаў
+          </a>
+          <a href="{% url 'register' %}" class="btn btn-outline btn-lg" id="hero-register-btn">
+            <i class="fas fa-user-plus"></i> Заказ бериў
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-value" data-counter="{{ total_orders|default:250 }}">0</div>
+            <div class="hero-stat-label">Орнатылған жойлар</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value" data-counter="{{ total_clients|default:180 }}">0</div>
+            <div class="hero-stat-label">Бахытлы клиент</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">5+</div>
+            <div class="hero-stat-label">Жыл тәжрийбе</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Декоратив күн белгиси -->
+    <div style="position:absolute; right:5%; top:50%; transform:translateY(-50%); font-size:18rem; opacity:0.04; animation:spin-slow 60s linear infinite; pointer-events:none;">☀️</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       АБЗАЛЛЫҚЛАР СЕКЦИЯСЫ
+  ══════════════════════════════════════════════════════ -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-title">
+        <div class="section-badge"><i class="fas fa-star"></i> Бизди сайлаңыз</div>
+        <h2>Неге ушын Garant Sun Energy?</h2>
+        <p>Нукустың қуяшлы климаты — сиздиң артықшылығыңыз</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="feature-card fade-in">
+          <div class="feature-icon">⚡</div>
+          <h3>Арзан электр</h3>
+          <p class="text-muted mt-1">Айлық электр тежеуин 70–90% азайтың. Системаны 4–6 жылда толық ақтарың.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">🛡️</div>
+          <h3>25 жыл гарантия</h3>
+          <p class="text-muted mt-1">Барлық панельлерге 25 жыл өнимдарлық гарантиясы. Сапа бойынша компромисс жоқ.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">🔧</div>
+          <h3>Профессионал орнатыў</h3>
+          <p class="text-muted mt-1">Тәжрийбели инженерлер тәрепинен 1–3 күн ишинде тез ҳәм сапалы орнатыў.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">🌍</div>
+          <h3>Экологиялық таза</h3>
+          <p class="text-muted mt-1">Жыл сайын тонналап CO₂ тежеуин азайтың. Ертеңги әўладқа таза табиғат қалдырың.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">📱</div>
+          <h3>Онлайн мониторинг</h3>
+          <p class="text-muted mt-1">Телефон арқалы системаңыздың жумысын хазирги ўақытта бақылаң.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">💳</div>
+          <h3>Бөлип төлеў</h3>
+          <p class="text-muted mt-1">0% кеңейтирилген бөлип төлеў мүмкинлиги менен системаны бүгин орнатың.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ӨНИМЛЕР СЕКЦИЯСЫ
+  ══════════════════════════════════════════════════════ -->
+  <section class="section" id="products" style="background: rgba(37,162,68,0.03);">
+    <div class="container">
+      <div class="section-title">
+        <div class="section-badge"><i class="fas fa-solar-panel"></i> Каталог</div>
+        <h2>Өнимлеримиз</h2>
+        <p>Сапалы күн панельлери ҳәм ускинелер</p>
+      </div>
+
+      {% if products %}
+      <div class="grid-3">
+        {% for product in products %}
+        <div class="product-card fade-in">
+          <div class="product-image">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" alt="{{ product.title_kk }}">
+            {% else %}
+              ☀️
+            {% endif %}
+          </div>
+          <div class="product-body">
+            <div class="product-category">{{ product.get_category_display }}</div>
+            <div class="product-title">{{ product.title_kk }}</div>
+            <div class="product-desc">{{ product.description_kk }}</div>
+            {% if product.power_kw %}
+            <div class="product-power">
+              <i class="fas fa-bolt"></i> {{ product.power_kw }} кВт
+            </div>
+            {% endif %}
+            <div class="product-price">{{ product.price|floatformat:0 }} сум</div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'user_order_create' %}?product={{ product.pk }}" class="btn btn-primary w-full" id="order-btn-{{ product.pk }}">
+              <i class="fas fa-shopping-cart"></i> Заказ бериў
+            </a>
+            {% else %}
+            <a href="{% url 'register' %}" class="btn btn-outline w-full" id="order-login-btn-{{ product.pk }}">
+              <i class="fas fa-sign-in-alt"></i> Кириў ҳәм заказ бериў
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="text-center mt-3">
+        <a href="{% url 'products_list' %}" class="btn btn-outline btn-lg" id="all-products-btn">
+          <i class="fas fa-th-large"></i> Барлық өнимлерди көриў
+        </a>
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <i class="fas fa-solar-panel"></i>
+        <h3>Өнимлер ҳәзирше қосылмаған</h3>
+        <p>Тезде жаңа өнимлер қосылады!</p>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       КАЛЬКУЛЯТОР СЕКЦИЯСЫ
+  ══════════════════════════════════════════════════════ -->
+  <section class="section" id="calculator">
+    <div class="container">
+      <div class="section-title">
+        <div class="section-badge"><i class="fas fa-calculator"></i> Есаплаў</div>
+        <h2>Электр Энергиясы Калькуляторы</h2>
+        <p>Айлық тутынысыңыздан система кереклигин есаплаң</p>
+      </div>
+
+      <div class="calculator-section">
+        <div class="calc-grid">
+          <!-- Кириў маълыўматлары -->
+          <div>
+            <h3 class="text-white mb-2">📊 Маълыўматларды киргизиң</h3>
+            <p class="text-muted mb-3" style="font-size:0.9rem;">Тек бирин тольтыриң: айлық тутыныс ямаса панель саны</p>
+
+            <label class="calc-label" for="calc-monthly-usage">
+              <i class="fas fa-bolt text-gold"></i> Айлық электр тутыныс (кВт·с)
+            </label>
+            <input type="number" id="calc-monthly-usage" class="calc-input"
+              placeholder="мыс: 300" min="0" step="10">
+
+            <label class="calc-label" for="calc-panel-count">
+              <i class="fas fa-solar-panel text-green"></i> Ямаса панель саны (дана)
+            </label>
+            <input type="number" id="calc-panel-count" class="calc-input"
+              placeholder="мыс: 10" min="0" step="1">
+
+            <label class="calc-label" for="calc-panel-power">
+              <i class="fas fa-sun text-gold"></i> 1 панель қуўаты (кВт)
+            </label>
+            <input type="number" id="calc-panel-power" class="calc-input"
+              value="0.545" min="0.1" max="1" step="0.005">
+
+            <div style="background:rgba(37,162,68,0.08);border:1px solid var(--border);border-radius:8px;padding:0.75rem;font-size:0.82rem;color:var(--text-secondary);">
+              <i class="fas fa-info-circle text-green"></i>
+              Нукус ушын орта: <strong class="text-green">5.5 сааты/күн</strong> күн сайын |
+              Электр баҳасы: <strong class="text-gold">700 сум/кВт·с</strong>
+            </div>
+          </div>
+
+          <!-- Нәтийжелер -->
+          <div>
+            <h3 class="text-white mb-2">✨ Нәтийже</h3>
+            <div class="calc-result-card" id="calc-result-wrap">
+              <div class="calc-result">
+                <div class="calc-result-item">
+                  <span class="label"><i class="fas fa-solar-panel"></i> Система қуўаты</span>
+                  <span class="value" id="res-system-kw">— кВт</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="label"><i class="fas fa-th"></i> Панель саны</span>
+                  <span class="value" id="res-panel-count">— дана</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="label"><i class="fas fa-bolt"></i> Айлық өндириў</span>
+                  <span class="value" id="res-monthly-gen">— кВт·с</span>
+                </div>
+                <div class="divider"></div>
+                <div class="calc-result-item">
+                  <span class="label"><i class="fas fa-wallet"></i> Айлық тасарруп</span>
+                  <span class="value text-gold" id="res-monthly-save">— сум</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="label"><i class="fas fa-chart-line"></i> Жыллық тасарруп</span>
+                  <span class="value text-gold" id="res-yearly-save">— сум</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="label"><i class="fas fa-tools"></i> Орнатыў баҳасы</span>
+                  <span class="value" id="res-install-cost">— сум</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="label"><i class="fas fa-redo"></i> Ақтаў мүддети</span>
+                  <span class="value text-green" id="res-payback">— жыл</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="label"><i class="fas fa-leaf"></i> CO₂ азайтыў</span>
+                  <span class="value" id="res-co2">— т/жыл</span>
+                </div>
+              </div>
+              <a href="{% url 'register' %}" class="btn btn-primary w-full mt-2" id="calc-order-btn" style="border-radius:8px;">
+                <i class="fas fa-paper-plane"></i> Усы система ушын заказ бериў
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       БАЙЛАНЫС СЕКЦИЯСЫ
+  ══════════════════════════════════════════════════════ -->
+  <section class="section" id="contact" style="background: rgba(37,162,68,0.03);">
+    <div class="container">
+      <div class="section-title">
+        <div class="section-badge"><i class="fas fa-phone"></i> Байланыс</div>
+        <h2>Биз бенен байланысыңыз</h2>
+        <p>Сораўларыңызға тезде жуўап беремиз</p>
+      </div>
+
+      <div class="contact-section">
+        <div class="calc-grid">
+          <!-- Байланыс маълыўматлары -->
+          <div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <h4>Компания-жайы</h4>
+                <p>Нукус қаласы, Қарақалпақстан</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="fas fa-phone"></i></div>
+              <div>
+                <h4>Телефон</h4>
+                <p>+998 99 955 20 03</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="fab fa-telegram"></i></div>
+              <div>
+                <h4>Telegram</h4>
+                <p>@garantsun_energy</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+              <div>
+                <h4>Жумыс ўақты</h4>
+                <p>Дүйшенбе – Жума: 9:00 – 18:00</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Байланыс формасы -->
+          <div>
+            <h3 class="text-white mb-2">📨 Хабар жибериң</h3>
+            <form method="post" action="" data-loading>
+              {% csrf_token %}
+              <input type="hidden" name="contact_submit" value="1">
+              <div class="form-group">
+                <label class="form-label">{{ contact_form.name.label }}</label>
+                {{ contact_form.name }}
+                {% if contact_form.name.errors %}
+                  <ul class="errorlist">{% for e in contact_form.name.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                <label class="form-label">{{ contact_form.phone.label }}</label>
+                {{ contact_form.phone }}
+              </div>
+              <div class="form-group">
+                <label class="form-label">{{ contact_form.message.label }}</label>
+                {{ contact_form.message }}
+              </div>
+              <button type="submit" class="btn btn-primary w-full" id="contact-submit-btn" style="border-radius:8px;">
+                <i class="fas fa-paper-plane"></i> Жибериў
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/calculator.js' %}"></script>
+<script>
+  // Форма input стильлерин автоматик қосыў
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    if (!el.classList.contains('calc-input')) {
+      el.classList.add('form-control');
+    }
+  });
+</script>
+{% endblock %}

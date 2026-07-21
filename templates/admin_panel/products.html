@@ -1,0 +1,75 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}Өнимлерди басқарыў{% endblock %}
+
+{% block adm_content %}
+<div class="page-header">
+  <div>
+    <h1>📦 Өнимлерди басқарыў</h1>
+    <p>Каталогтағы барлық күн панельлери ҳәм басқа өнимлер</p>
+  </div>
+  <a href="{% url 'admin_product_create' %}" class="btn btn-primary">
+    <i class="fas fa-plus"></i> Жаңа өним қосыў
+  </a>
+</div>
+
+<div class="table-wrap">
+  {% if products %}
+  <table>
+    <thead>
+      <tr>
+        <th>Сүрет</th>
+        <th>Категория</th>
+        <th>Аты (КҚ)</th>
+        <th>Қуўаты (кВт)</th>
+        <th>Баҳасы</th>
+        <th>Статус</th>
+        <th>Амаллар</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>
+          <div style="width: 50px; height: 50px; border-radius: 8px; overflow: hidden; background: #222; display: flex; align-items: center; justify-content: center;">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+            {% else %}
+              ☀️
+            {% endif %}
+          </div>
+        </td>
+        <td><span class="status-badge status-scheduled">{{ product.get_category_display }}</span></td>
+        <td><strong>{{ product.title_kk }}</strong></td>
+        <td>{{ product.power_kw|default:"—" }} кВт</td>
+        <td style="color: var(--gold); font-weight: 600;">{{ product.price|floatformat:0 }} сум</td>
+        <td>
+          {% if product.is_active %}
+            <span class="status-badge status-completed">Актив</span>
+          {% else %}
+            <span class="status-badge status-cancelled">Өширилген</span>
+          {% endif %}
+        </td>
+        <td>
+          <div class="flex gap-1">
+            <a href="{% url 'admin_product_edit' product.pk %}" class="btn btn-outline btn-sm">
+              <i class="fas fa-edit"></i>
+            </a>
+            <a href="{% url 'admin_product_delete' product.pk %}" class="btn btn-danger btn-sm">
+              <i class="fas fa-trash"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <i class="fas fa-solar-panel"></i>
+    <h3>Өнимлер қосылмаған</h3>
+    <p>Жаңа өним қосыў ушын жоқарыдағы батырманы басың</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

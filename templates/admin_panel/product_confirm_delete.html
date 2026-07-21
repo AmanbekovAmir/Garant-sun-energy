@@ -1,0 +1,31 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}Өнимди өшириў{% endblock %}
+
+{% block adm_content %}
+<div class="page-header">
+  <div>
+    <h1>🗑️ Өнимди өшириў</h1>
+    <p>Бул амалды артқа қайтарып болмайды!</p>
+  </div>
+</div>
+
+<div style="max-width: 500px;">
+  <div class="card">
+    <h3 class="text-white mb-2">Сиз ҳақыйқаттан да өнимди өширмекшисиз бе?</h3>
+    <p class="text-muted mb-3">Өним аты: <strong>{{ product.title_kk }}</strong></p>
+    
+    <form method="post" action="">
+      {% csrf_token %}
+      <div class="flex gap-2">
+        <button type="submit" class="btn btn-danger">
+          <i class="fas fa-trash"></i> Ия, өшириў
+        </button>
+        <a href="{% url 'admin_products' %}" class="btn btn-outline">
+          Бийкар етиў
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

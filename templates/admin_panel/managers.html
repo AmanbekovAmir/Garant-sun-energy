@@ -1,0 +1,53 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}Менеджерлерди басқарыў{% endblock %}
+
+{% block adm_content %}
+<div class="page-header">
+  <div>
+    <h1>👥 Менеджерлерди басқарыў</h1>
+    <p>Системадағы заказларды қайта ислейтуғын менеджерлер</p>
+  </div>
+  <a href="{% url 'admin_manager_add' %}" class="btn btn-primary">
+    <i class="fas fa-plus"></i> Жаңа менеджер қосыў
+  </a>
+</div>
+
+<div class="table-wrap">
+  {% if managers %}
+  <table>
+    <thead>
+      <tr>
+        <th>Логин</th>
+        <th>Аты-жөни</th>
+        <th>Телефон</th>
+        <th>Email</th>
+        <th>Катталған ўақты</th>
+        <th>Амаллар</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for manager in managers %}
+      <tr>
+        <td><strong>{{ manager.username }}</strong></td>
+        <td>{{ manager.get_full_name|default:"—" }}</td>
+        <td style="color:var(--green-light); font-weight:600;">{{ manager.phone|default:"—" }}</td>
+        <td>{{ manager.email|default:"—" }}</td>
+        <td>{{ manager.created_at|date:"d.m.Y H:i" }}</td>
+        <td>
+          <a href="{% url 'admin_manager_delete' manager.pk %}" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash-alt"></i> Өшириў
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <i class="fas fa-users-cog"></i>
+    <h3>Менеджерлер қосылмаған</h3>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

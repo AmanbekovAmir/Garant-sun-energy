@@ -1,0 +1,80 @@
+{% extends 'manager/base_manager.html' %}
+
+{% block title %}Заказды өзгертиў #{{ order.pk }}{% endblock %}
+
+{% block mgr_content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-edit text-gold"></i> Заказды өзгертиў #{{ order.pk }}</h1>
+    <p>Клиент: <strong>{{ order.user.get_full_name|default:order.user.username }}</strong> ({{ order.user.phone|default:"Телефонсыз" }})</p>
+  </div>
+  <a href="{% url 'manager_orders' %}" class="btn btn-outline btn-sm">
+    <i class="fas fa-arrow-left"></i> Артқа
+  </a>
+</div>
+
+<div class="grid-2">
+  <!-- Заказ мағлыўматы -->
+  <div class="card">
+    <h3 class="text-white mb-2">📋 Заказ мағлыўматы</h3>
+    <div class="divider"></div>
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      <div>
+        <span class="text-muted" style="font-size:0.85rem;">Өним:</span>
+        <div style="font-weight:600; color:var(--white); font-size:1.1rem;">{{ order.product.title_kk|default:"Өним өширилген" }}</div>
+      </div>
+      <div>
+        <span class="text-muted" style="font-size:0.85rem;">Саны:</span>
+        <div style="font-weight:600; color:var(--white);">{{ order.quantity }} дана</div>
+      </div>
+      <div>
+        <span class="text-muted" style="font-size:0.85rem;">Жәми баҳасы:</span>
+        <div style="font-weight:800; color:var(--gold); font-size:1.3rem;">{{ order.total_price|floatformat:0 }} сум</div>
+      </div>
+      <div>
+        <span class="text-muted" style="font-size:0.85rem;">Орнатыў мекан-жайы:</span>
+        <div style="color:var(--text-primary);">{{ order.address|default:"Көрсетилмеген" }}</div>
+      </div>
+      <div>
+        <span class="text-muted" style="font-size:0.85rem;">Клиент ескертпеси:</span>
+        <div style="color:var(--text-secondary); font-style:italic;">{{ order.notes|default:"Ескертпе жоқ" }}</div>
+      </div>
+      <div>
+        <span class="text-muted" style="font-size:0.85rem;">Заказ ўақыты:</span>
+        <div>{{ order.created_at|date:"d.m.Y H:i:s" }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Статусты өзгертиў формасы -->
+  <div class="form-card">
+    <h3 class="text-white mb-2">⚙️ Статус ҳәм Ескертпе</h3>
+    <div class="divider"></div>
+    <form method="post" action="" data-loading>
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label class="form-label">{{ form.status.label }}</label>
+        {{ form.status }}
+        {% if form.status.errors %}<ul class="errorlist">{% for e in form.status.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.manager_notes.label }}</label>
+        {{ form.manager_notes }}
+        {% if form.manager_notes.errors %}<ul class="errorlist">{% for e in form.manager_notes.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" style="border-radius:8px; margin-top:1rem;">
+        <i class="fas fa-save"></i> Өзгертиўлерди сақлаў
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('select, textarea').forEach(el => el.classList.add('form-control'));
+</script>
+{% endblock %}

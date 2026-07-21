@@ -1,0 +1,75 @@
+{% extends 'user/base_user.html' %}
+
+{% block title %}Профилим{% endblock %}
+
+{% block dash_content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-user-edit text-green"></i> Профилим</h1>
+    <p>Жеке маълыўматларыңызды өзгертиңиз</p>
+  </div>
+</div>
+
+<div style="max-width: 580px;">
+  <div class="form-card">
+    <!-- Профиль аватар -->
+    <div class="text-center mb-3">
+      <div class="profile-avatar">
+        {{ user.first_name|first|default:user.username|first|upper }}
+      </div>
+      <h3 class="text-white">{{ user.get_full_name|default:user.username }}</h3>
+      <span class="status-badge" style="background:rgba(37,162,68,0.15);color:var(--green-light);">
+        <i class="fas fa-user"></i> Пайдаланыўшы
+      </span>
+    </div>
+
+    <div class="divider"></div>
+
+    <form method="post" action="" data-loading id="profile-form">
+      {% csrf_token %}
+
+      <div class="grid-2" style="gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">{{ form.first_name.label }}</label>
+          {{ form.first_name }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">{{ form.last_name.label }}</label>
+          {{ form.last_name }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.phone.label }}</label>
+        {{ form.phone }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.email.label }}</label>
+        {{ form.email }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.address.label }}</label>
+        {{ form.address }}
+      </div>
+
+      <div style="background:rgba(37,162,68,0.06);border:1px solid var(--border);border-radius:8px;padding:0.75rem;font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem;">
+        <i class="fas fa-info-circle text-green"></i>
+        Логинди өзгертиў ушын администраторға мурәжат етиңиз.
+        Сиздиң логиниңиз: <strong class="text-white">{{ user.username }}</strong>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" id="profile-save-btn" style="border-radius:8px;">
+        <i class="fas fa-save"></i> Сақлаў
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('input, textarea').forEach(el => el.classList.add('form-control'));
+</script>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'user/base_user.html' %}
+
+{% block title %}Менің кабинетим{% endblock %}
+
+{% block dash_content %}
+<div class="page-header">
+  <div>
+    <h1>👋 Хош келдиңиз, {{ user.first_name|default:user.username }}!</h1>
+    <p>Сиздиң жеке кабинетиңиз</p>
+  </div>
+  <a href="{% url 'user_order_create' %}" class="btn btn-primary" id="new-order-btn">
+    <i class="fas fa-plus"></i> Жаңа заказ
+  </a>
+</div>
+
+<!-- Статистика -->
+<div class="grid-3 mb-3">
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="fas fa-shopping-bag"></i></div>
+    <div>
+      <div class="stat-value">{{ order_stats.total }}</div>
+      <div class="stat-label">Жәми заказлар</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon gold"><i class="fas fa-clock"></i></div>
+    <div>
+      <div class="stat-value">{{ order_stats.new }}</div>
+      <div class="stat-label">Жаңа заказлар</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+    <div>
+      <div class="stat-value">{{ order_stats.completed }}</div>
+      <div class="stat-label">Жуўмақланды</div>
+    </div>
+  </div>
+</div>
+
+<!-- Соңғы заказлар -->
+<div class="table-wrap mb-3">
+  <div class="table-header">
+    <h3><i class="fas fa-history"></i> Соңғы заказлар</h3>
+    <a href="{% url 'user_orders' %}" class="btn btn-outline btn-sm" id="all-orders-link">Барлығы</a>
+  </div>
+
+  {% if orders %}
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Өним</th>
+        <th>Саны</th>
+        <th>Баҳасы</th>
+        <th>Статус</th>
+        <th>Ўақыты</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>#{{ order.pk }}</td>
+        <td>{{ order.product.title_kk|default:"—" }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>{{ order.total_price|floatformat:0|default:"—" }} сум</td>
+        <td>
+          <span class="status-badge status-{{ order.status }}">
+            {{ order.get_status_kk }}
+          </span>
+        </td>
+        <td>{{ order.created_at|date:"d.m.Y" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <i class="fas fa-shopping-bag"></i>
+    <h3>Заказлар жоқ</h3>
+    <p>Бириншиниңизди қосыңыз!</p>
+    <a href="{% url 'user_order_create' %}" class="btn btn-primary mt-2" id="first-order-btn">
+      <i class="fas fa-plus"></i> Заказ бериў
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Қызықлы өнимлер -->
+{% if products %}
+<div>
+  <h3 class="text-white mb-2">⭐ Ҳәзир жарамлы өнимлер</h3>
+  <div class="grid-4">
+    {% for p in products %}
+    <div class="product-card" style="transform: none;">
+      <div class="product-image" style="height:120px;font-size:2rem;">
+        {% if p.image %}<img src="{{ p.image.url }}" alt="{{ p.title_kk }}">{% else %}☀️{% endif %}
+      </div>
+      <div class="product-body">
+        <div class="product-title" style="font-size:0.95rem;">{{ p.title_kk }}</div>
+        <div class="product-price" style="font-size:1.1rem;">{{ p.price|floatformat:0 }} сум</div>
+        <a href="{% url 'user_order_create' %}?product={{ p.pk }}" class="btn btn-primary btn-sm w-full" id="dashboard-order-{{ p.pk }}" style="border-radius:6px;">
+          Заказ бериў
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

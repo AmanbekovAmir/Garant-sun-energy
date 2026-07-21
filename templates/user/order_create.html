@@ -1,0 +1,75 @@
+{% extends 'user/base_user.html' %}
+{% load static %}
+
+{% block title %}Жаңа заказ{% endblock %}
+
+{% block dash_content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-plus-circle text-green"></i> Жаңа заказ бериў</h1>
+    <p>Өнимди сайлаңыз ҳәм маълыўматларды толтырыңыз</p>
+  </div>
+  <a href="{% url 'user_orders' %}" class="btn btn-outline btn-sm" id="back-orders-btn">
+    <i class="fas fa-arrow-left"></i> Заказларға қайтыў
+  </a>
+</div>
+
+<div style="max-width: 680px;">
+  <div class="form-card">
+    <form method="post" action="" data-loading id="order-form">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label class="form-label">{{ form.product.label }}</label>
+        {{ form.product }}
+        {% if form.product.errors %}<ul class="errorlist">{% for e in form.product.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.quantity.label }}</label>
+        {{ form.quantity }}
+      </div>
+
+      <!-- Жәми баҳа -->
+      <div style="background:rgba(37,162,68,0.08);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:center;">
+        <span class="text-muted" style="font-size:0.9rem;"><i class="fas fa-calculator"></i> Жәми баҳа:</span>
+        <span style="font-size:1.3rem;font-weight:800;color:var(--gold);" id="total-price-display">—</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.address.label }}</label>
+        {{ form.address }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.notes.label }}</label>
+        {{ form.notes }}
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" id="order-submit-btn" style="border-radius:8px;">
+        <i class="fas fa-paper-plane"></i> Заказды жибериў
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Өним баҳалары JSON -->
+<script id="product-prices" type="application/json">
+  { {% for p in form.product.queryset %}"{{ p.pk }}": {{ p.price }}{% if not forloop.last %},{% endif %}{% endfor %} }
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('select, input, textarea').forEach(el => el.classList.add('form-control'));
+
+  // Заказ формасы product URL параметрден тайярлаў
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('product');
+  if (productId) {
+    const sel = document.querySelector('#id_product');
+    if (sel) sel.value = productId;
+  }
+</script>
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

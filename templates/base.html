@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="kk" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Garant Sun Energy — Нукустағы күн энергиясы системасы компаниясы. Күн панельлерин орнатыў, энергия тасарруф.">
+  <title>{% block title %}Garant Sun Energy{% endblock %} | Нукус</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀️</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Баслы CSS -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Жүклениў экраны -->
+<div class="loading-overlay" id="loader">
+  <div class="loader"></div>
+</div>
+
+<!-- ── НАВИГАЦИЯ ──────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-brand">
+    <div class="brand-icon">☀️</div>
+    <span>Garant <span>Sun</span> Energy</span>
+  </div>
+
+  <button class="hamburger" id="hamburger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+      <i class="fas fa-home"></i> Бас бет
+    </a></li>
+    <li><a href="{% url 'products_list' %}" class="{% if 'products' in request.path %}active{% endif %}">
+      <i class="fas fa-solar-panel"></i> Өнимлер
+    </a></li>
+    <li><a href="{% url 'home' %}#calculator">
+      <i class="fas fa-calculator"></i> Калькулятор
+    </a></li>
+    <li><a href="{% url 'home' %}#contact">
+      <i class="fas fa-phone"></i> Байланыс
+    </a></li>
+  </ul>
+
+  <div class="nav-actions">
+    {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}" class="btn btn-outline btn-sm" id="nav-dashboard-btn">
+        <i class="fas fa-tachometer-alt"></i>
+        {% if user.role == 'admin' %}Админ{% elif user.role == 'manager' %}Менеджер{% else %}Кабинет{% endif %}
+      </a>
+      <a href="{% url 'logout' %}" class="btn btn-sm" style="color: var(--text-secondary);" id="nav-logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Шығыў
+      </a>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn btn-outline btn-sm" id="nav-login-btn">
+        <i class="fas fa-sign-in-alt"></i> Кириў
+      </a>
+      <a href="{% url 'register' %}" class="btn btn-primary btn-sm" id="nav-register-btn">
+        <i class="fas fa-user-plus"></i> Дизимнен өтиў
+      </a>
+    {% endif %}
+  </div>
+</nav>
+
+<!-- ── ХАБАРЛАМАЛАР ───────────────────────────────────────── -->
+{% if messages %}
+<div class="messages-wrap">
+  {% for message in messages %}
+  <div class="message-alert {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}">
+    <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% elif message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-info-circle{% endif %}"></i>
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ── БЕТ МАЗМУНЫ ────────────────────────────────────────── -->
+{% block content %}{% endblock %}
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+{% block show_footer %}
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>☀️ Garant Sun Energy</h3>
+        <p>Нокистеғы жетекши күн энергиясы компаниясы. Заманагөй технологиялар менен үйиңизди «жасыл» энергияға өткериңиз.</p>
+        <div class="flex gap-2 mt-2">
+          <a href="#" style="color: var(--text-muted); font-size: 1.2rem;"><i class="fab fa-telegram"></i></a>
+          <a href="#" style="color: var(--text-muted); font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+          <a href="#" style="color: var(--text-muted); font-size: 1.2rem;"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Бетлер</h4>
+        <a href="{% url 'home' %}">Бас бет</a>
+        <a href="{% url 'products_list' %}">Өнимлер</a>
+        <a href="{% url 'home' %}#calculator">Калькулятор</a>
+        <a href="{% url 'home' %}#contact">Байланыс</a>
+      </div>
+      <div class="footer-links">
+        <h4>Ақпарат</h4>
+        <a href="#">Ҳаққымызда</a>
+        <a href="#">Гарантия</a>
+        <a href="#">Орнатыў</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 Garant Sun Energy. Барлық ҳуқықлар сақланған.</span>
+      <span>🌿 Тазалығымыз — ертеңимиз</span>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scroll-top" aria-label="Жоқарыға">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- JavaScript -->
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

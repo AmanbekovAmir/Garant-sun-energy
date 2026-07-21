@@ -1,0 +1,52 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}Байланыс хабарлары{% endblock %}
+
+{% block adm_content %}
+<div class="page-header">
+  <div>
+    <h1>📨 Байланыс хабарлары</h1>
+    <p>Сайттағы байланыс формасы арқалы жиберилген хабарлар тизими</p>
+  </div>
+</div>
+
+<div class="table-wrap">
+  {% if messages_list %}
+  <table>
+    <thead>
+      <tr>
+        <th>Аты</th>
+        <th>Телефон</th>
+        <th>Хабар мазмуны</th>
+        <th>Жуўап берилди</th>
+        <th>Жиберилген ўақыты</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for msg in messages_list %}
+      <tr>
+        <td><strong>{{ msg.name }}</strong></td>
+        <td style="color:var(--green-light); font-weight:600;">{{ msg.phone }}</td>
+        <td style="max-width:350px; overflow:hidden; text-overflow:ellipsis; white-space:normal; font-size:0.85rem; line-height:1.4;">
+          {{ msg.message }}
+        </td>
+        <td>
+          {% if msg.is_read %}
+            <span class="status-badge status-completed">Оқылды</span>
+          {% else %}
+            <span class="status-badge status-new">Жаңа</span>
+          {% endif %}
+        </td>
+        <td>{{ msg.created_at|date:"d.m.Y H:i" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <i class="fas fa-envelope-open"></i>
+    <h3>Хабарлар ҳәзирше жоқ</h3>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Кириў{% endblock %}
+{% block show_footer %}{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="icon">☀️</div>
+      <h1>Кириў</h1>
+      <p>Озиниздин кабинетиңизге кириң</p>
+    </div>
+
+    <form method="post" action="" data-loading id="login-form">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label class="form-label">{{ form.username.label }}</label>
+        {{ form.username }}
+        {% if form.username.errors %}<ul class="errorlist">{% for e in form.username.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.password.label }}</label>
+        <div style="position:relative;">
+          {{ form.password }}
+          <button type="button" id="toggle-password" onclick="togglePass()" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);">
+            <i class="fas fa-eye" id="pass-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      {% if form.non_field_errors %}
+      <div class="alert alert-error">
+        <i class="fas fa-exclamation-circle"></i>
+        Логин ямаса пароль кате. Қайталап урынып корин.
+      </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary btn-block" id="login-submit-btn" style="border-radius:8px;margin-top:0.5rem;">
+        <i class="fas fa-sign-in-alt"></i> Кириў
+      </button>
+    </form>
+
+    <div class="divider"></div>
+
+    <p class="text-center text-muted" style="font-size:0.9rem;">
+      Аккаунтыңыз жоқпа?
+      <a href="{% url 'register' %}" id="goto-register-link" style="color:var(--green-light);font-weight:600;">Дизимнен өтиң</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('input').forEach(el => el.classList.add('form-control'));
+
+  function togglePass() {
+    const inp = document.querySelector('#id_password');
+    const icon = document.querySelector('#pass-icon');
+    if (inp.type === 'password') {
+      inp.type = 'text';
+      icon.className = 'fas fa-eye-slash';
+    } else {
+      inp.type = 'password';
+      icon.className = 'fas fa-eye';
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Дизимнен өтиў{% endblock %}
+{% block show_footer %}{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="icon">☀️</div>
+      <h1>Дизимнен өтиў</h1>
+      <p>Garant Sun Energy аккаунт жасаң</p>
+    </div>
+
+    <form method="post" action="" data-loading id="register-form">
+      {% csrf_token %}
+
+      <div class="grid-2" style="gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label">{{ form.first_name.label }}</label>
+          {{ form.first_name }}
+          {% if form.first_name.errors %}<ul class="errorlist">{% for e in form.first_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+        <div class="form-group">
+          <label class="form-label">{{ form.last_name.label }}</label>
+          {{ form.last_name }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.username.label }}</label>
+        {{ form.username }}
+        {% if form.username.errors %}<ul class="errorlist">{% for e in form.username.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.phone.label }}</label>
+        {{ form.phone }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.email.label }}</label>
+        {{ form.email }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.password.label }}</label>
+        {{ form.password }}
+        {% if form.password.errors %}<ul class="errorlist">{% for e in form.password.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.password2.label }}</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}<ul class="errorlist">{% for e in form.password2.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+
+      {% if form.non_field_errors %}
+      <div class="alert alert-error">
+        <i class="fas fa-exclamation-circle"></i>
+        {% for e in form.non_field_errors %}{{ e }}{% endfor %}
+      </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary btn-block" id="register-submit-btn" style="border-radius:8px;margin-top:0.5rem;">
+        <i class="fas fa-user-plus"></i> Дизимнен өтиў
+      </button>
+    </form>
+
+    <div class="divider"></div>
+    <p class="text-center text-muted" style="font-size:0.9rem;">
+      Аккаунтыңыз барма?
+      <a href="{% url 'login' %}" id="goto-login-link" style="color:var(--green-light);font-weight:600;">Кириң</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('input').forEach(el => el.classList.add('form-control'));
+</script>
+{% endblock %}
